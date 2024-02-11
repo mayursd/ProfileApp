@@ -1,0 +1,32 @@
+name: cs442_mp1
+description: CS 442 MP1 - Profile information page
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  flutter_svg: ^0.22.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    #- assets/images/
+    - assets/images/mp1-mockup-layout.jpg
+    - assets/images/DSC_8343.jpg
+    - assets/icons/@_icon.svg
+    - assets/images/illinois_tech.png
+    - assets/images/RiverdaleNEWlogo.png
+    - assets/images/38616285_0.png
+    - assets/images/project1.png
+    - assets/images/project2.png
+    - assets/images/project3.png
+    - assets/images/project4.png
