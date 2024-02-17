@@ -1,10 +1,30 @@
-import 'package:flutter/material.dart';
+class EducationInfo {
+  final String name;
+  final String gpa;
+  final String logo;
 
-class UserInfo {
-  final String profilePic;
+  EducationInfo({
+    required this.name,
+    required this.gpa,
+    required this.logo,
+  });
+}
+
+class ProjectInfo {
+  final String name;
+  final String image;
+
+  ProjectInfo({
+    required this.name,
+    required this.image,
+  });
+}
+
+class UserData {
   final String name;
   final String position;
   final String company;
+  final String profilePic;
   final String phone;
   final String email;
   final String address1;
@@ -12,11 +32,11 @@ class UserInfo {
   final List<EducationInfo> education;
   final List<ProjectInfo> projects;
 
-  UserInfo({
-    required this.profilePic,
+  UserData({
     required this.name,
     required this.position,
     required this.company,
+    required this.profilePic,
     required this.phone,
     required this.email,
     required this.address1,
@@ -24,73 +44,4 @@ class UserInfo {
     required this.education,
     required this.projects,
   });
-}
-
-class EducationInfo {
-  final String logo;
-  final String name;
-  final String gpa;
-
-  EducationInfo({
-    required this.logo,
-    required this.name,
-    required this.gpa,
-  });
-}
-
-class ProjectInfo {
-  final String image;
-  final String name;
-
-  ProjectInfo({
-    required this.image,
-    required this.name,
-  });
-}
-
-class EducationWidget extends StatelessWidget {
-  final String logo;
-  final String name;
-  final String gpa;
-
-  const EducationWidget({
-    required this.logo,
-    required this.name,
-    required this.gpa,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset(
-            logo,
-            fit: BoxFit.fitHeight,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Center(
-          child: Text(
-            name,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
-          ),
-        ),
-        const SizedBox(height: 8),
-        Center(
-          child: Text(
-            gpa,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 }

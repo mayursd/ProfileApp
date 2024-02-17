@@ -2,158 +2,134 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'classes.dart';
 
-void main() {
-  runApp(const MyApp());
+class EducationInfo {
+  final String name;
+  final String gpa;
+  final String logo;
+
+  EducationInfo({
+    required this.name,
+    required this.gpa,
+    required this.logo,
+  });
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ProjectInfo {
+  final String name;
+  final String image;
+
+  ProjectInfo({
+    required this.name,
+    required this.image,
+  });
+}
+
+class UserData {
+  final String name;
+  final String position;
+  final String company;
+  final String profilePic;
+  final String phone;
+  final String email;
+  final String address1;
+  final String address2;
+  final List<EducationInfo> education;
+  final List<ProjectInfo> projects;
+
+  UserData({
+    required this.name,
+    required this.position,
+    required this.company,
+    required this.profilePic,
+    required this.phone,
+    required this.email,
+    required this.address1,
+    required this.address2,
+    required this.education,
+    required this.projects,
+  });
+}
+
+class UserDataWidget extends StatelessWidget {
+  final UserData userData;
+
+  const UserDataWidget({Key? key, required this.userData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    UserInfo userData = UserInfo(
-        profilePic: 'assets/images/DSC_8343.jpg',
-        name: 'John Doe',
-        position: 'Software Engineer',
-        company: 'ACME Enterprises',
-        phone: '(312) 555-1212',
-        email: 'john.doe@acme.com',
-        address1: '10 W 31st St.',
-        address2: 'Chicago, IL 60616',
-        education: [
-          EducationInfo(
-              logo: 'assets/images/RiverdaleNEWlogo.png',
-              name: 'Riverdale High',
-              gpa: '4.0 GPA'),
-          EducationInfo(
-              name: 'Illinois Tech\nB.S. in C.S.',
-              logo: 'assets/images/illinois_tech.png',
-              gpa: '3.8 GPA'),
+    return Card(
+      elevation: 4.0,
+      color: const Color.fromARGB(120, 90, 80, 120),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Container(
+            alignment: Alignment.center,
+            height: 200,
+            width: 200,
+            child: Image.asset(
+              userData.profilePic,
+              fit: BoxFit.contain,
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: Row(
+                  textDirection: TextDirection.rtl,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      userData.name,
+                      style: const TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: Row(
+                  textDirection: TextDirection.rtl,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(userData.position,
+                        style: const TextStyle(color: Colors.white))
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: Row(
+                  textDirection: TextDirection.rtl,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(userData.company,
+                        style: const TextStyle(color: Colors.white))
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
-        projects: [
-          ProjectInfo(
-              image: 'assets/images/project1.png', name: 'Sentiment Analysis'),
-          ProjectInfo(
-              image: 'assets/images/project2.png', name: 'Gender and Age analysis'),
-          ProjectInfo(
-              image: 'assets/images/project3.png', name: 'Chatbot in Python'),
-          ProjectInfo(
-              image: 'assets/images/project4.png', name: 'DataSys Coin'),
-        ]);
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Profile App",
-      theme:
-          ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber)),
-      home: MyHomePage(
-        userData: userData,
       ),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final UserInfo userData;
 
-  const MyHomePage({super.key, required this.userData});
+class ExtendedUserDataWidget extends StatelessWidget {
+  final UserData userData;
+
+  const ExtendedUserDataWidget({Key? key, required this.userData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      extendBody: true,
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(120, 90, 80, 120),
-        elevation: 10.0,
-        shape: ContinuousRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0)),
-        // shadowColor: Colors.grey,
-        title: const Center(
-          child: Text(
-            'My Profile App',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-        ),
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-          colors: [Colors.orange, Colors.white, Colors.blue, Colors.green],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        )),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10.0),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                Card(
-                  elevation: 4.0,
-                  color: const Color.fromARGB(120, 90, 80, 120),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: 200,
-                        width: 200,
-                        child: Image.asset(
-                          userData.profilePic,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const SizedBox(height: 15),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20.0),
-                            child: Row(
-                              textDirection: TextDirection.rtl,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  userData.name,
-                                  style: const TextStyle(color: Colors.white),
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20.0),
-                            child: Row(
-                              textDirection: TextDirection.rtl,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(userData.position,
-                                    style: const TextStyle(color: Colors.white))
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20.0),
-                            child: Row(
-                              textDirection: TextDirection.rtl,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(userData.company,
-                                    style: const TextStyle(color: Colors.white))
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Card(
+    return 
+    Card(
                   elevation: 4.0,
                   borderOnForeground: true,
                   color: const Color.fromARGB(120, 90, 80, 120),
@@ -185,11 +161,11 @@ class MyHomePage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Column(
+                            Column(crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 8.0, top: 8.0),
+                                      left: 36.0, top: 8.0),
                                   child: SvgPicture.asset(
                                     'assets/icons/@_icon.svg',
                                     height: 48,
@@ -234,11 +210,24 @@ class MyHomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Card(
+                );
+                
+  }
+
+  
+}
+
+
+class EducationInfoWidget extends StatelessWidget {
+  final List<EducationInfo> educationInfoList;
+
+  const EducationInfoWidget({Key? key, required this.educationInfoList})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return 
+  Card(
                   elevation: 4.0,
                   color: const Color.fromARGB(120, 90, 80, 120),
                   child: Column(
@@ -250,6 +239,7 @@ class MyHomePage extends StatelessWidget {
                           style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.w900),
                         ),
                       ),
+                      for (var userData in educationInfoList)
                       GridView(
                         shrinkWrap: true,
                         gridDelegate:
@@ -267,165 +257,146 @@ class MyHomePage extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Image.asset(
-                                userData.education[0].logo,
+                                userData.logo,
                                 fit: BoxFit.fitHeight,
                               ),
                             ),
                           ),
                           Center(
                               child: Text(
-                            userData.education[0].name,
+                            userData.name,
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 18),
                           )),
                           Center(
-                              child: Text(userData.education[0].gpa,
+                              child: Text(userData.gpa,
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 18))),
-                          Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 8.0, right: 15.0, bottom: 8.0),
-                              child: Image.asset(
-                                userData.education[1].logo,
-                                color: Colors.white,
-                                height: 120,
-                                fit: BoxFit.fitHeight,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(.0),
-                            child: Center(
-                              child: RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 18),
-                                  children: [
-                                    TextSpan(text: userData.education[1].name)
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Center(
-                            child: Text(
-                              userData.education[1].gpa,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 18),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 8.0,
-                ),
-                Card(
-                  elevation: 4.0,
-                  color: const Color.fromARGB(120, 90, 80, 120),
-                  child: Column(
-                    children: [
-                      const Center(
-                          child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('Projects',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900, )),
-                      )),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Column(
-                            children: [
-                              Image.asset(
-                                userData.projects[0].image,
-                                width: 200.0, // Set the width as needed
-                                height: 100.0, // Set the height as needed
-                                fit: BoxFit
-                                    .contain, // Adjust the fit based on your requirements
-                              ),
-                              Text(
-                                userData.projects[0].name,
-                                style: const TextStyle(
-                                    fontSize: 16.0,
-                                    color: Colors.white),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Image.asset(
-                                userData.projects[1].image,
-                                width: 200.0, // Set the width as needed
-                                height: 100.0, // Set the height as needed
-                                fit: BoxFit
-                                    .contain, // Adjust the fit based on your requirements
-                              ),
-                              Text(
-                                userData.projects[1].name,
-                                style: const TextStyle(
-                                    fontSize: 16.0,
-                                    color: Colors.white),
-                              ),
-                            ],
-                          ),
                           
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Column(
-                              children: [
-                                Image.asset(
-                                  userData.projects[2].image,
-                                  width: 200.0, // Set the width as needed
-                                  height: 100.0, // Set the height as needed
-                                  fit: BoxFit
-                                      .contain, // Adjust the fit based on your requirements
-                                ),
-                                Text(
-                                  userData.projects[2].name,
-                                  style: const TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Image.asset(
-                                  userData.projects[3].image,
-                                  width: 200.0, // Set the width as needed
-                                  height: 100.0, // Set the height as needed
-                                  fit: BoxFit
-                                      .contain, // Adjust the fit based on your requirements
-                                ),
-                                 Text(
-                                  userData.projects[3].name,
-                                  style: const TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
                     ],
                   ),
+                );
+                
+  }
+}
+
+class ProjectInfoWidget extends StatelessWidget {
+  final List<ProjectInfo> projects;
+
+  const ProjectInfoWidget({Key? key, required this.projects}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4.0,
+      color: const Color.fromARGB(120, 90, 80, 120),
+      child: Column(
+        children: [
+          const Center(
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Projects',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
                 ),
-                const SizedBox(
-                  height: 8.0,
-                )
+              ),
+            ),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            itemCount: (projects.length / 3).ceil(),
+            itemBuilder: (BuildContext context, int index) {
+              int startIndex = index * 3;
+              int endIndex = (index + 1) * 3;
+
+              if (endIndex > projects.length) {
+                endIndex = projects.length;
+              }
+
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: projects.sublist(startIndex, endIndex).map((project) {
+                  return Expanded(
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          project.image,
+                          width: 200.0,
+                          height: 100.0,
+                          fit: BoxFit.contain,
+                        ),
+                        Text(
+                          project.name,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  final UserData userData;
+
+  const MyHomePage({Key? key, required this.userData}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      extendBody: true,
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(120, 90, 80, 120),
+        elevation: 10.0,
+        shape: ContinuousRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        title: const Center(
+          child: Text(
+            'My Profile App',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+        ),
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.orange, Colors.white, Colors.blue, Colors.green],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 2.0),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                UserDataWidget(userData: userData),
+                const SizedBox(height: 4),
+                ExtendedUserDataWidget(userData: userData),
+                const SizedBox(height: 4),
+                EducationInfoWidget(educationInfoList: userData.education),
+                const SizedBox(height: 4),
+                ProjectInfoWidget(projects: userData.projects),
+                const SizedBox(height: 4),
               ],
             ),
           ),
@@ -433,4 +404,62 @@ class MyHomePage extends StatelessWidget {
       ),
     );
   }
+}
+
+void main() {
+  runApp(
+    MaterialApp(
+      home: MyHomePage(
+        userData: UserData(
+          name: 'John Doe',
+          position: 'Software Engineer',
+          company: 'Tech Co.',
+          profilePic: 'assets/images/DSC_8343.jpg',
+          phone: '+123456789',
+          email: 'john.doe@example.com',
+          address1: '123 Main St',
+          address2: 'Apt 45, Cityville',
+          education: [
+            EducationInfo(
+              name: 'Illinois Institute of Technology',
+              gpa: '3.8 GPA',
+              logo: 'assets/images/illinois_tech.png',
+            ),
+            EducationInfo(
+              name: 'RiverDale School',
+              gpa: '3.5 GPA',
+              logo: 'assets/images/RiverdaleNEWlogo.png',
+            ),
+            
+          ],
+          projects: [
+            ProjectInfo(
+              name: 'Project X',
+              image: 'assets/images/project1.png',
+            ),
+            ProjectInfo(
+              name: 'Project Y',
+              image: 'assets/images/project2.png',
+            ),
+            ProjectInfo(
+              name: 'Project Z',
+              image: 'assets/images/project3.png',
+            ),
+            ProjectInfo(
+              name: 'Project Z',
+              image: 'assets/images/project4.png',
+            ),
+            ProjectInfo(
+              name: 'Project Z',
+              image: 'assets/images/project4.png',
+            ),
+            ProjectInfo(
+              name: 'Project Z',
+              image: 'assets/images/project4.png',
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
