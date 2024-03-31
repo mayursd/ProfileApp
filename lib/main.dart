@@ -13,22 +13,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     UserInfo userData = UserInfo(
         profilePic: 'assets/images/DSC_8343.jpg',
-        name: 'John Doe',
-        position: 'Software Engineer',
-        company: 'ACME Enterprises',
-        phone: '(312) 555-1212',
-        email: 'john.doe@acme.com',
-        address1: '10 W 31st St.',
+        name: 'Mayur Deshmukh',
+        position: 'Graduate Student at Illinois Tech',
+        company: 'Illinois Institute of Technology',
+        phone: '(312) 714-6229',
+        email: 'mdeshmukh2@hawk.iit.edu',
+        address1: '501 E 32nd St',
         address2: 'Chicago, IL 60616',
         education: [
           EducationInfo(
               logo: 'assets/images/RiverdaleNEWlogo.png',
-              name: 'Riverdale High',
-              gpa: '4.0 GPA'),
+              name: 'Pune University',
+              gpa: '7.54 CGPA'),
           EducationInfo(
-              name: 'Illinois Tech\nB.S. in C.S.',
+              name: 'Illinois Tech\nMaster''s  in C.S.',
               logo: 'assets/images/illinois_tech.png',
-              gpa: '3.8 GPA'),
+              gpa: '3.0 GPA'),
         ],
         projects: [
           ProjectInfo(
