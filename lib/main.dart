@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'classes.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class EducationInfo {
   final String name;
@@ -50,173 +53,187 @@ class UserData {
   });
 }
 
-class UserDataWidget extends StatelessWidget {
+class UserDataWidget extends StatefulWidget {
   final UserData userData;
 
   const UserDataWidget({Key? key, required this.userData}) : super(key: key);
 
   @override
+  _UserDataWidgetState createState() => _UserDataWidgetState();
+}
+
+class _UserDataWidgetState extends State<UserDataWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<Offset> _slideAnimationPhoto;
+  late Animation<Offset> _slideAnimationPhone;
+
+  @override
+  void initState() {
+    super.initState();
+
+    
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4.0,
-      color: const Color.fromARGB(120, 90, 80, 120),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-            alignment: Alignment.center,
-            height: 200,
-            width: 200,
-            child: Image.asset(
-              userData.profilePic,
-              fit: BoxFit.contain,
+    const colorizeColors = [Colors.black, Colors.white38];
+
+    const colorizeTextStyle = TextStyle(
+      fontSize: 60.0,
+      fontFamily: 'Horizon',
+    );
+    return Row(
+      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        // Slide in the photo from left to right
+        SizedBox(width: 200,),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              alignment: Alignment.center,
+              height: 400,
+              width: 400,
+              child: Image.asset(
+                widget.userData.profilePic,
+                fit: BoxFit.contain,
+              ).animate()
             ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: Row(
-                  textDirection: TextDirection.rtl,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      userData.name,
-                      style: const TextStyle(color: Colors.white),
+          ],
+        ),
+        SizedBox(width: 200,),
+        // Slide in the phone number from right to left
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedTextKit(
+              animatedTexts: [
+                ColorizeAnimatedText(widget.userData.name,
+                    textStyle: colorizeTextStyle,
+                    colors: colorizeColors,
+                    speed: Duration(milliseconds: 200),
+                    ),
+              ],
+              isRepeatingAnimation: true,
+              repeatForever: true,
+            ),
+            AnimatedTextKit(
+              animatedTexts: [
+                TypewriterAnimatedText(
+                    'Graduate Student at Illinois Tech!!!',
+                    speed: Duration(milliseconds: 50),
+                    textStyle: TextStyle(fontSize: 30)
                     )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: Row(
-                  textDirection: TextDirection.rtl,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(userData.position,
-                        style: const TextStyle(color: Colors.white))
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: Row(
-                  textDirection: TextDirection.rtl,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(userData.company,
-                        style: const TextStyle(color: Colors.white))
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+                    
+              ],
+              isRepeatingAnimation: true,
+              repeatForever: true,
+            ),
+          ],
+        )
+      ],
     );
   }
 }
 
-
 class ExtendedUserDataWidget extends StatelessWidget {
   final UserData userData;
 
-  const ExtendedUserDataWidget({Key? key, required this.userData}) : super(key: key);
+  const ExtendedUserDataWidget({Key? key, required this.userData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Card(
-                  elevation: 4.0,
-                  borderOnForeground: true,
-                  color: const Color.fromARGB(120, 90, 80, 120),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: ListView(
-                      shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Column(
-                              children: [
-                                Icon(
-                                  Icons.phone,
-                                  color: Colors.white,
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(userData.phone,
-                                    style: const TextStyle(color: Colors.white))
-                              ],
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 36.0, top: 8.0),
-                                  child: SvgPicture.asset(
-                                    'assets/icons/@_icon.svg',
-                                    height: 48,
-                                    width: 48,
-                                    matchTextDirection: true,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(userData.email,
-                                    style: const TextStyle(color: Colors.white))
-                              ],
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
-                                  child: Icon(Icons.home, color: Colors.white),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(userData.address1,
-                                    style:
-                                        const TextStyle(color: Colors.white)),
-                                Text(userData.address2,
-                                    style: const TextStyle(color: Colors.white))
-                              ],
-                            )
-                          ],
-                        )
-                      ],
+    return Card(
+      elevation: 4.0,
+      borderOnForeground: true,
+      color: const Color.fromARGB(120, 90, 80, 120),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: ListView(
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const Column(
+                  children: [
+                    Icon(
+                      Icons.phone,
+                      color: Colors.white,
+                    )
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(userData.phone,
+                        style: const TextStyle(color: Colors.white))
+                  ],
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 36.0, top: 8.0),
+                      child: SvgPicture.asset(
+                        'assets/icons/@_icon.svg',
+                        height: 48,
+                        width: 48,
+                        matchTextDirection: true,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                );
-                
+                  ],
+                ),
+                Column(
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(userData.email,
+                        style: const TextStyle(color: Colors.white))
+                  ],
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Icon(Icons.home, color: Colors.white),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(userData.address1,
+                        style: const TextStyle(color: Colors.white)),
+                    Text(userData.address2,
+                        style: const TextStyle(color: Colors.white))
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
-
-  
 }
-
 
 class EducationInfoWidget extends StatelessWidget {
   final List<EducationInfo> educationInfoList;
@@ -226,59 +243,57 @@ class EducationInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-  Card(
-                  elevation: 4.0,
-                  color: const Color.fromARGB(120, 90, 80, 120),
-                  child: Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          'Education',
-                          style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.w900),
-                        ),
-                      ),
-                      for (var userData in educationInfoList)
-                      GridView(
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3, // Number of columns
-                                crossAxisSpacing: 4.0,
-                                childAspectRatio: 5,
-                                mainAxisSpacing: 2,
-                                mainAxisExtent: 75.0
+    return Card(
+      elevation: 4.0,
+      color: const Color.fromARGB(120, 90, 80, 120),
+      child: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 4.0),
+            child: Text(
+              'Education',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900),
+            ),
+          ),
+          for (var userData in educationInfoList)
+            GridView(
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3, // Number of columns
+                  crossAxisSpacing: 4.0,
+                  childAspectRatio: 5,
+                  mainAxisSpacing: 2,
+                  mainAxisExtent: 75.0
 
-                                // Spacing between rows
-                                ),
-                        children: [
-                          Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                userData.logo,
-                                fit: BoxFit.fitHeight,
-                              ),
-                            ),
-                          ),
-                          Center(
-                              child: Text(
-                            userData.name,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 18),
-                          )),
-                          Center(
-                              child: Text(userData.gpa,
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 18))),
-                          
-                        ],
-                      ),
-                    ],
+                  // Spacing between rows
                   ),
-                );
-                
+              children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      userData.logo,
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                ),
+                Center(
+                    child: Text(
+                  userData.name,
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
+                )),
+                Center(
+                    child: Text(userData.gpa,
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 18))),
+              ],
+            ),
+        ],
+      ),
+    );
   }
 }
 
@@ -378,28 +393,14 @@ class MyHomePage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.orange, Colors.white, Colors.blue, Colors.green],
+            colors: [Colors.black, Colors.grey],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
         child: Padding(
           padding: const EdgeInsets.only(top: 2.0),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                UserDataWidget(userData: userData),
-                const SizedBox(height: 4),
-                ExtendedUserDataWidget(userData: userData),
-                const SizedBox(height: 4),
-                EducationInfoWidget(educationInfoList: userData.education),
-                const SizedBox(height: 4),
-                ProjectInfoWidget(projects: userData.projects),
-                const SizedBox(height: 4),
-              ],
-            ),
-          ),
+          child: UserDataWidget(userData: userData),
         ),
       ),
     );
@@ -411,7 +412,7 @@ void main() {
     MaterialApp(
       home: MyHomePage(
         userData: UserData(
-          name: 'John Doe',
+          name: 'Mayur Deshmukh',
           position: 'Software Engineer',
           company: 'Tech Co.',
           profilePic: 'assets/images/DSC_8343.jpg',
@@ -430,7 +431,6 @@ void main() {
               gpa: '3.5 GPA',
               logo: 'assets/images/RiverdaleNEWlogo.png',
             ),
-            
           ],
           projects: [
             ProjectInfo(
