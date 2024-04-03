@@ -65,8 +65,7 @@ class UserDataWidget extends StatefulWidget {
 class _UserDataWidgetState extends State<UserDataWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  late Animation<Offset> _slideAnimationPhoto;
-  late Animation<Offset> _slideAnimationPhone;
+
 
   @override
   void initState() {
